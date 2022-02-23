@@ -1,5 +1,6 @@
 package com.techandteach.customer.model.types
 
+@kotlinx.serialization.Serializable
 class Password private constructor(val value: String) {
     companion object {
         fun fromString(value: String?): Password {

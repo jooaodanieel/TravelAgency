@@ -1,5 +1,6 @@
 package com.techandteach.customer.model.types
 
+@kotlinx.serialization.Serializable
 data class Name private constructor(private val value: String) {
     companion object {
         fun fromString(value: String?): Name {

@@ -3,8 +3,12 @@ package com.techandteach.customer.model
 import com.techandteach.customer.model.types.Email
 import com.techandteach.customer.model.types.Name
 import com.techandteach.customer.model.types.Password
+import com.techandteach.customer.model.types.UUIDSerializer
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import java.util.UUID
 
+@Serializable
 class Customer(
     var name: Name,
     var email: Email,
@@ -27,6 +31,7 @@ class Customer(
         }
     }
 
+    @Serializable(with = UUIDSerializer::class)
     lateinit var id: UUID
 
     private val billingAddresses: MutableList<BillingAddress> = mutableListOf()
