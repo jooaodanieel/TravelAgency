@@ -21,7 +21,7 @@ class CustomerRepositoryImpl(private val db: Database): CustomerRepository {
             n++
         }
 
-        return n == 0
+        return n >  0
     }
 
     override fun isEmailTaken(email: String): Boolean {
@@ -34,12 +34,11 @@ class CustomerRepositoryImpl(private val db: Database): CustomerRepository {
             n++
         }
 
-        return n == 0
+        return n >  0
     }
 
     override fun add(customer: Customer): Customer {
         val affectedRecords = db.update(Customers) {
-            set(it.id, customer.id.toString())
             set(it.name, customer.name.toString())
             set(it.email, customer.email.toString())
             set(it.password, customer.password.toString())
