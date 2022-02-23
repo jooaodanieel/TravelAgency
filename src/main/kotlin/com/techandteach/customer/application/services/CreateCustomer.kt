@@ -2,7 +2,7 @@ package com.techandteach.customer.application.services
 
 import com.techandteach.customer.model.*
 import com.techandteach.customer.model.types.Email
-import com.techandteach.customer.model.types.Name
+import com.techandteach.utils.types.Name
 import com.techandteach.customer.model.types.Password
 
 class CreateCustomer(private val customerRepository: CustomerRepository) {

@@ -1,4 +1,4 @@
-package com.techandteach.customer.model.types
+package com.techandteach.utils
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

@@ -1,4 +1,4 @@
-package com.techandteach.customer.model.types
+package com.techandteach.utils.types
 
 @kotlinx.serialization.Serializable
 data class Name private constructor(private val value: String) {

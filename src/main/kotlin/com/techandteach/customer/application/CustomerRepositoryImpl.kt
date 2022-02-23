@@ -3,7 +3,7 @@ package com.techandteach.customer.application
 import com.techandteach.customer.model.Customer
 import com.techandteach.customer.model.CustomerRepository
 import com.techandteach.customer.model.types.Email
-import com.techandteach.customer.model.types.Name
+import com.techandteach.utils.types.Name
 import com.techandteach.customer.model.types.Password
 import com.techandteach.framework.database.tables.Customers
 import org.ktorm.database.Database

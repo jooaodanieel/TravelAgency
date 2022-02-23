@@ -1,10 +1,9 @@
 package com.techandteach.customer.model
 
 import com.techandteach.customer.model.types.Email
-import com.techandteach.customer.model.types.Name
+import com.techandteach.utils.types.Name
 import com.techandteach.customer.model.types.Password
-import com.techandteach.customer.model.types.UUIDSerializer
-import kotlinx.serialization.Contextual
+import com.techandteach.utils.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
