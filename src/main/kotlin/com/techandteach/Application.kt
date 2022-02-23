@@ -1,5 +1,7 @@
 package com.techandteach
 
+import AirlineRepositoryImpl
+import com.techandteach.curatorship.application.services.CreateAirline
 import com.techandteach.customer.application.CustomerRepositoryImpl
 import com.techandteach.customer.application.services.CreateCustomer
 import com.techandteach.customer.application.services.DeleteCustomer
@@ -15,11 +17,14 @@ import io.ktor.server.plugins.*
 fun main() {
     val db = databaseConnection()
 
-    val repo = CustomerRepositoryImpl(db)
+    val customerRepository = CustomerRepositoryImpl(db)
+    val airlineRepository = AirlineRepositoryImpl(db)
 
-    val createCustomer = CreateCustomer(repo)
-    val deleteCustomer = DeleteCustomer(repo)
-    val fetchCustomers = FetchCustomers(repo)
+    val createCustomer = CreateCustomer(customerRepository)
+    val deleteCustomer = DeleteCustomer(customerRepository)
+    val fetchCustomers = FetchCustomers(customerRepository)
+
+    val createAirline = CreateAirline(airlineRepository)
 
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
         install(ContentNegotiation) {
@@ -28,7 +33,8 @@ fun main() {
         configureRouting(
             createCustomer,
             deleteCustomer,
-            fetchCustomers
+            fetchCustomers,
+            createAirline
         )
     }.start(wait = true)
 }

@@ -1,5 +1,7 @@
 package com.techandteach.plugins
 
+import com.techandteach.curatorship.application.curatorshipRouting
+import com.techandteach.curatorship.application.services.CreateAirline
 import com.techandteach.customer.application.customerRouting
 import com.techandteach.customer.application.services.CreateCustomer
 import com.techandteach.customer.application.services.DeleteCustomer
@@ -13,7 +15,9 @@ import io.ktor.server.request.*
 fun Application.configureRouting(
     createCustomer: CreateCustomer,
     deleteCustomer: DeleteCustomer,
-    fetchCustomers: FetchCustomers
+    fetchCustomers: FetchCustomers,
+
+    createAirline: CreateAirline
 ) {
 
     routing {
@@ -21,6 +25,10 @@ fun Application.configureRouting(
             createCustomer,
             deleteCustomer,
             fetchCustomers
+        )
+
+        curatorshipRouting(
+            createAirline
         )
     }
 }
