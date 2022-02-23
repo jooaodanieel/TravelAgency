@@ -30,6 +30,16 @@
     </repositories>
     <dependencies>
         <dependency>
+            <groupId>org.ktorm</groupId>
+            <artifactId>ktorm-core</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.24</version>
+        </dependency>
+        <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-core-jvm</artifactId>
             <version>${ktor_version}</version>
