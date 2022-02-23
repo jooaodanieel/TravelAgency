@@ -1,3 +1,9 @@
+CREATE DATABASE "travelagency";
+
+GRANT ALL PRIVILEGES ON DATABASE "travelagency" TO root;
+
+\c "travelagency";
+
 CREATE TABLE IF NOT EXISTS customers (
 
     id varchar(255) not null primary key,

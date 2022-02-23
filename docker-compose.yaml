@@ -6,6 +6,8 @@ services:
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=secret
+    volumes:
+      - ./src/main/kotlin/com/techandteach/framework/database/schema.sql:/schema.sql
     ports:
       - "5432:5432"
     networks:
