@@ -61,7 +61,6 @@ class CustomerRepositoryImpl(private val db: Database): CustomerRepository {
         val customerRecord = db.from(Customers)
             .select()
             .where { Customers.id eq id.toString() }
-            .limit(1)
 
         var customer: Customer? = null
 
