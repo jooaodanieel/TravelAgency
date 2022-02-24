@@ -1,10 +1,15 @@
 package com.techandteach.customer.model
 
-@kotlinx.serialization.Serializable
+import com.techandteach.customer.model.types.ExpirationDate
+import com.techandteach.customer.model.types.CreditCardNumber
+import com.techandteach.utils.types.Name
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CreditCard(
-    var provider: String,
-    var ownerName: String,
-    var number: String,
+    var provider: Name,
+    var ownerName: Name,
+    var number: CreditCardNumber,
     var cvc: String,
-    var expiration: String
+    var expiration: ExpirationDate
 )
