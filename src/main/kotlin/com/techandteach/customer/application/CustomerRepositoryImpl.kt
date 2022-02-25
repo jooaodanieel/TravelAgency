@@ -1,77 +1,44 @@
 package com.techandteach.customer.application
 
+import com.techandteach.customer.infrastructure.CreditCardDAO
+import com.techandteach.customer.infrastructure.CustomerDAO
 import com.techandteach.customer.model.Customer
 import com.techandteach.customer.model.CustomerRepository
-import com.techandteach.customer.model.types.Email
-import com.techandteach.utils.types.Name
-import com.techandteach.customer.model.types.Password
-import com.techandteach.framework.database.tables.Customers
-import org.ktorm.database.Database
-import org.ktorm.dsl.*
 import java.util.*
 
-class CustomerRepositoryImpl(private val db: Database): CustomerRepository {
+class CustomerRepositoryImpl(
+    private val customerDAO: CustomerDAO,
+    private val creditCardDAO: CreditCardDAO
+): CustomerRepository {
     override fun isNameTaken(name: String): Boolean {
-        val query = db.from(Customers)
-            .select(Customers.name)
-            .where { Customers.name eq name }
-
-        var n = 0
-        for (row in query) {
-            n++
-        }
+        val n = customerDAO.countByName(name)
 
         return n >  0
     }
 
     override fun isEmailTaken(email: String): Boolean {
-        val query = db.from(Customers)
-            .select(Customers.email)
-            .where { Customers.email eq email }
-
-        var n = 0
-        for (row in query) {
-            n++
-        }
+        val n = customerDAO.countByEmail(email)
 
         return n >  0
     }
 
     override fun add(customer: Customer): Customer {
-        val affectedRecords = db.update(Customers) {
-            set(it.name, customer.name.toString())
-            set(it.email, customer.email.toString())
-            set(it.password, customer.password.toString())
-            where { it.id eq customer.id.toString() }
-        }
+        customerDAO.upsert(customer)!!
 
-        if (affectedRecords == 1) return customer
-
-        db.insert(Customers) {
-            set(it.id, customer.id.toString())
-            set(it.name, customer.name.toString())
-            set(it.email, customer.email.toString())
-            set(it.password, customer.password.toString())
+        for (card in customer.getCreditCards()) {
+            creditCardDAO.upsert(card, customer)
         }
 
         return customer
     }
 
     override fun findById(id: UUID): Customer? {
-        val customerRecord = db.from(Customers)
-            .select()
-            .where { Customers.id eq id.toString() }
+        val customer = customerDAO.find(id) ?: return null
 
-        var customer: Customer? = null
+        val cards = creditCardDAO.findByCustomerId(id)
 
-        for (row in customerRecord) {
-            val id: String = row[Customers.id] ?: break
-
-            val name: Name = Name.fromString(row[Customers.name])
-            val email: Email = Email.fromString(row[Customers.email])
-            val password: Password = Password.fromString(row[Customers.password])
-
-            customer = Customer.hydrate(UUID.fromString(id), name, email, password)
+        for (card in cards) {
+            customer.addCreditCard(card)
         }
 
         return customer
@@ -82,9 +49,13 @@ class CustomerRepositoryImpl(private val db: Database): CustomerRepository {
     }
 
     override fun removeById(id: UUID): Customer? {
-        val customer = findById(id)
+        val cards = creditCardDAO.deleteAllFromCustomer(customerId = id)
 
-        db.delete(Customers) { it.id eq id.toString() }
+        val customer = customerDAO.delete(id) ?: return null
+
+        for (card in cards) {
+            customer.addCreditCard(card)
+        }
 
         return customer
     }

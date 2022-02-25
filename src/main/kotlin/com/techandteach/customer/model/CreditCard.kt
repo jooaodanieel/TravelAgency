@@ -12,4 +12,14 @@ data class CreditCard(
     var number: CreditCardNumber,
     var cvc: String,
     var expiration: ExpirationDate
-)
+) {
+    companion object {
+        fun create(provider: Name, ownerName: Name, number: CreditCardNumber, cvc: String, expiration: ExpirationDate): CreditCard {
+            return CreditCard(provider, ownerName, number, cvc, expiration)
+        }
+
+        fun hydrate(provider: Name, ownerName: Name, number: CreditCardNumber, cvc: String, expiration: ExpirationDate): CreditCard {
+            return CreditCard(provider, ownerName, number, cvc, expiration)
+        }
+    }
+}

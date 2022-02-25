@@ -15,7 +15,7 @@ data class CreditCardNumber private constructor(private val value: List<String>)
 
         fun fromString(value: String?): CreditCardNumber {
             if (value == null) throw IllegalArgumentException("Credit card number must be provided")
-            val digits = value.replace("- .".toRegex(), "")
+            val digits = value.replace("[- .]".toRegex(), "")
             return fromCleanedString(digits)
         }
 

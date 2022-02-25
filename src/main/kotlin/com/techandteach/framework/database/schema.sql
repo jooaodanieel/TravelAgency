@@ -19,3 +19,19 @@ CREATE TABLE IF NOT EXISTS airlines (
     name varchar(255) unique not null
 
 );
+
+CREATE TABLE IF NOT EXISTS credit_cards (
+
+    id serial primary key,
+    provider varchar(255) not null,
+    owner varchar(255) not null,
+    number varchar(255) not null,
+    cvc varchar(255) not null,
+    expiration varchar(255) not null,
+    customer_id varchar(255),
+    constraint fk_customer
+        foreign key(customer_id)
+            references customers(id)
+                on delete cascade
+
+);
