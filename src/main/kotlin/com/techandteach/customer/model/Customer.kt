@@ -33,27 +33,15 @@ class Customer(
     @Serializable(with = UUIDSerializer::class)
     lateinit var id: UUID
 
-    private val billingAddresses: MutableList<BillingAddress> = mutableListOf()
     private val creditCards: MutableList<CreditCard> = mutableListOf()
 
-    fun addBillingAddress(billingAddress: BillingAddress) {
-        billingAddresses.add(billingAddress)
-    }
 
     fun addCreditCard(creditCard: CreditCard) {
         creditCards.add(creditCard)
     }
 
-    fun removeBillingAddress(billingAddress: BillingAddress) {
-        billingAddresses.remove(billingAddress)
-    }
-
     fun removeCreditCard(creditCard: CreditCard) {
         creditCards.remove(creditCard)
-    }
-
-    fun getBillingAddresses(): List<BillingAddress> {
-        return billingAddresses
     }
 
     fun getCreditCards(): List<CreditCard> {

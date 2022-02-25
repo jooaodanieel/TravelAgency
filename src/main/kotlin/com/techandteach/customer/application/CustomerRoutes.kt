@@ -1,5 +1,6 @@
 package com.techandteach.customer.application
 
+import com.techandteach.customer.application.dtos.AddCreditCardDTO
 import com.techandteach.customer.application.dtos.CreateCustomerDTO
 import com.techandteach.customer.application.services.CreateCustomer
 import com.techandteach.customer.application.services.DeleteCustomer
@@ -44,7 +45,38 @@ fun Route.customerRouting(
             val (name, email, password) = call.receive<CreateCustomerDTO>()
 
             val customerOrErrorMessage = try {
-                createCustomer.create(name, email, password)
+                createCustomer.registerCustomer(name, email, password)
+            } catch (e: IllegalArgumentException) {
+                e.message
+            }
+
+            if (customerOrErrorMessage is Customer) {
+                val customer: Customer = customerOrErrorMessage
+                return@post call.respond(
+                    message = customer,
+                    status = HttpStatusCode.Created
+                )
+            }
+
+            return@post call.respond(
+                message = mapOf("error" to customerOrErrorMessage),
+                status = HttpStatusCode.BadRequest
+            )
+        }
+
+        post("{id}/credit_cards") {
+            val customerId = call.parameters["id"]
+            val (provider, ownerName, number, cvc, expiration) = call.receive<AddCreditCardDTO>()
+
+            val customerOrErrorMessage = try {
+                createCustomer.addCreditCardInformation(
+                    maybeCustomerId = customerId,
+                    maybeProvider = provider,
+                    maybeOwnerName = ownerName,
+                    maybeNumber = number,
+                    maybeExpiration = expiration,
+                    cvc = cvc
+                )
             } catch (e: IllegalArgumentException) {
                 e.message
             }
