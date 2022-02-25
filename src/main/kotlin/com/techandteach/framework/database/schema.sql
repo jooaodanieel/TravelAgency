@@ -13,13 +13,6 @@ CREATE TABLE IF NOT EXISTS customers (
 
 );
 
-CREATE TABLE IF NOT EXISTS airlines (
-
-    id varchar(255) not null primary key,
-    name varchar(255) unique not null
-
-);
-
 CREATE TABLE IF NOT EXISTS credit_cards (
 
     id serial primary key,

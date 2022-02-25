@@ -1,7 +1,5 @@
 package com.techandteach
 
-import AirlineRepositoryImpl
-import com.techandteach.curatorship.application.services.CreateAirline
 import com.techandteach.customer.application.CustomerRepositoryImpl
 import com.techandteach.customer.application.services.CreateCustomer
 import com.techandteach.customer.application.services.DeleteCustomer
@@ -23,13 +21,10 @@ fun main() {
     val creditCardDAO = CreditCardDAO(db)
 
     val customerRepository = CustomerRepositoryImpl(customerDAO, creditCardDAO)
-    val airlineRepository = AirlineRepositoryImpl(db)
 
     val createCustomer = CreateCustomer(customerRepository)
     val deleteCustomer = DeleteCustomer(customerRepository)
     val fetchCustomers = FetchCustomers(customerRepository)
-
-    val createAirline = CreateAirline(airlineRepository)
 
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
         install(ContentNegotiation) {
@@ -38,8 +33,7 @@ fun main() {
         configureRouting(
             createCustomer,
             deleteCustomer,
-            fetchCustomers,
-            createAirline
+            fetchCustomers
         )
     }.start(wait = true)
 }
