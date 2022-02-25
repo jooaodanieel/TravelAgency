@@ -16,6 +16,10 @@ application {
     mainClass.set("com.example.ApplicationKt")
 }
 
+tasks.test {
+    useJUnit()
+}
+
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
@@ -29,6 +33,8 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("org.ktorm:ktorm-core:${ktorm_version}")
     implementation("org.postgresql:postgresql:${pgdriver_version}")
+    testImplementation("junit:junit:4.13")
+    testImplementation(kotlin("test"))
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
