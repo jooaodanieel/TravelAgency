@@ -4,9 +4,8 @@ import com.techandteach.curatorship.model.Airline
 import com.techandteach.framework.database.databaseConnection
 import com.techandteach.framework.database.tables.Airlines
 import com.techandteach.utils.types.Name
-
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.ktorm.database.Database
 import org.ktorm.dsl.*
 import java.util.*
@@ -59,6 +58,11 @@ internal class AirlineDAOTest {
         assertEquals(initialCount, finalCount)
     }
 
+    private fun countStoredAirlines(): Int {
+        val query = db.from(Airlines).select(Airlines.id)
+        return query.map { it[Airlines.id].toString() }.size
+    }
+
     @Test
     fun upsertThrowsIllegalArgumentWhenInsertingWithConstraintConflicts() {
         val duppedNameNewAirline = Airline.create(existingName)
@@ -71,9 +75,32 @@ internal class AirlineDAOTest {
         assertThrows<java.lang.IllegalArgumentException> { underTest.upsert(duppedNameHydratedAirline) }
     }
 
-    private fun countStoredAirlines(): Int {
-        val query = db.from(Airlines).select(Airlines.id)
-        return query.map { it[Airlines.id].toString() }.size
+    @Test
+    fun findReturnsAirlineWhenMatch() {
+        val airline = underTest.find(existingId)
+
+        assertTrue(airline is Airline)
+    }
+
+    @Test
+    fun findReturnsNullWhenNoMatch() {
+        val airline = underTest.find(UUID.randomUUID())
+
+        assertNull(airline)
+    }
+
+    @Test
+    fun deleteReturnsNullWhenNoMatch() {
+        val result = underTest.delete(UUID.randomUUID())
+
+        assertNull(result)
+    }
+
+    @Test
+    fun deleteReturnsAirlineWhenMatch() {
+        val result = underTest.delete(existingId)
+
+        assertTrue(result is Airline)
     }
 
     @BeforeAll
