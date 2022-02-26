@@ -8,6 +8,7 @@ services:
       - POSTGRES_PASSWORD=secret
     volumes:
       - ./src/main/kotlin/com/techandteach/framework/database/schema.sql:/schema.sql
+      - ./src/main/kotlin/com/techandteach/framework/database/test-schema.sql:/test-schema.sql
     ports:
       - "5432:5432"
     networks:

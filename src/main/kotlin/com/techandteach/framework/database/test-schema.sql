@@ -1,8 +1,8 @@
-CREATE DATABASE "travelagency";
+CREATE DATABASE "travelagencytest";
 
-GRANT ALL PRIVILEGES ON DATABASE "travelagency" TO root;
+GRANT ALL PRIVILEGES ON DATABASE "travelagencytest" TO root;
 
-\c "travelagency";
+\c "travelagencytest";
 
 CREATE TABLE IF NOT EXISTS customers (
 
