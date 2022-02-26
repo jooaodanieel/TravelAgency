@@ -16,8 +16,8 @@ application {
     mainClass.set("com.example.ApplicationKt")
 }
 
-tasks.test {
-    useJUnit()
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 repositories {
@@ -33,8 +33,8 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("org.ktorm:ktorm-core:${ktorm_version}")
     implementation("org.postgresql:postgresql:${pgdriver_version}")
-    testImplementation("junit:junit:4.13")
-    testImplementation(kotlin("test"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
