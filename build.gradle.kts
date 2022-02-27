@@ -3,6 +3,8 @@ val kotlin_version: String by project
 val logback_version: String by project
 val ktorm_version: String by project
 val pgdriver_version: String by project
+val mockk_version: String by project
+val junit_jupiter_version: String by project
 
 plugins {
     application
@@ -33,8 +35,9 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("org.ktorm:ktorm-core:${ktorm_version}")
     implementation("org.postgresql:postgresql:${pgdriver_version}")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("io.mockk:mockk:${mockk_version}")
+    testImplementation("org.junit.jupiter:junit-jupiter:${junit_jupiter_version}")
+    testImplementation("org.junit.jupiter:junit-jupiter:${junit_jupiter_version}")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
