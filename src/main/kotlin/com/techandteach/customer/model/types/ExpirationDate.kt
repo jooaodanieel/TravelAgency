@@ -15,8 +15,8 @@ data class ExpirationDate(
             if (value == null) throw IllegalArgumentException("Expiration date must be provided")
             val rgx = """^(\d{2})/(\d{2})$""".toRegex()
             val matched = rgx.find(value) ?: throw IllegalArgumentException("Expiration date must follow the format mm/yy")
-            val month = matched.groupValues?.get(1).toInt()
-            val year = matched.groupValues?.get(2).toInt()
+            val month = matched.groupValues[1].toInt()
+            val year = matched.groupValues[2].toInt()
 
             if ((month !in 1 until 13) || year < LocalDate.now().year % 100) throw IllegalArgumentException("Expiration date must be a valid pair month/year")
 

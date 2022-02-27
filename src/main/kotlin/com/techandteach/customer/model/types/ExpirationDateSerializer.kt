@@ -13,7 +13,7 @@ object ExpirationDateSerializer : KSerializer<ExpirationDate> {
         return ExpirationDate.fromString(decoder.decodeString())
     }
 
-    override fun serialize(encoder: Encoder, ed: ExpirationDate) {
-        encoder.encodeString(ed.toString())
+    override fun serialize(encoder: Encoder, value: ExpirationDate) {
+        encoder.encodeString(value.toString())
     }
 }

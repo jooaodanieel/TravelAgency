@@ -6,16 +6,16 @@ import com.techandteach.curatorship.model.AirlineRepository
 import java.util.*
 
 class AirlineRepositoryImpl(private val airlineDAO: AirlineDAO) : AirlineRepository {
-    override fun add(airline: Airline): Airline {
-        return airlineDAO.upsert(airline)
+    override fun add(entity: Airline): Airline {
+        return airlineDAO.upsert(entity)
     }
 
     override fun findById(id: UUID): Airline? {
         return airlineDAO.find(id)
     }
 
-    override fun remove(airline: Airline): Airline? {
-        return removeById(airline.id)
+    override fun remove(entity: Airline): Airline? {
+        return removeById(entity.id)
     }
 
     override fun removeById(id: UUID): Airline? {

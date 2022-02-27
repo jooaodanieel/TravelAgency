@@ -22,14 +22,14 @@ class CustomerRepositoryImpl(
         return n >  0
     }
 
-    override fun add(customer: Customer): Customer {
-        customerDAO.upsert(customer)!!
+    override fun add(entity: Customer): Customer {
+        customerDAO.upsert(entity)!!
 
-        for (card in customer.getCreditCards()) {
-            creditCardDAO.upsert(card, customer)
+        for (card in entity.getCreditCards()) {
+            creditCardDAO.upsert(card, entity)
         }
 
-        return customer
+        return entity
     }
 
     override fun findById(id: UUID): Customer? {
@@ -44,8 +44,8 @@ class CustomerRepositoryImpl(
         return customer
     }
 
-    override fun remove(customer: Customer): Customer? {
-        return removeById(customer.id)
+    override fun remove(entity: Customer): Customer? {
+        return removeById(entity.id)
     }
 
     override fun removeById(id: UUID): Customer? {

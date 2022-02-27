@@ -48,13 +48,13 @@ class CustomerDAO(private val db: Database) {
         var customer: Customer? = null
 
         for (row in customerRecord) {
-            val id: String = row[Customers.id] ?: break
+            val rowId: String = row[Customers.id] ?: break
 
             val name: Name = Name.fromString(row[Customers.name])
             val email: Email = Email.fromString(row[Customers.email])
             val password: Password = Password.fromString(row[Customers.password])
 
-            customer = Customer.hydrate(UUID.fromString(id), name, email, password)
+            customer = Customer.hydrate(UUID.fromString(rowId), name, email, password)
 
             break
         }

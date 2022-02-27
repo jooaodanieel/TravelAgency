@@ -53,7 +53,7 @@ class CreditCardDAO(private val db: Database) {
         val cards: MutableList<CreditCard> = mutableListOf()
 
         for (row in result) {
-            val id: Long = row[CreditCards.id] ?: break
+            row[CreditCards.id] ?: break
 
             val provider = row[CreditCards.provider]
             val owner = row[CreditCards.owner]

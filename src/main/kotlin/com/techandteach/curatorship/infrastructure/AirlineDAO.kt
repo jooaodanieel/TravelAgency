@@ -24,10 +24,10 @@ class AirlineDAO(private val db: Database) {
 
         var airline: Airline? = null
         for (row in results) {
-            val id = row[Airlines.id] ?: break
+            val rowId = row[Airlines.id] ?: break
             val name = Name.fromString(row[Airlines.name])
 
-            airline = Airline.hydrate(UUID.fromString(id), name)
+            airline = Airline.hydrate(UUID.fromString(rowId), name)
             break
         }
 
