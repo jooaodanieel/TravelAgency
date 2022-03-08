@@ -1,5 +1,6 @@
 package com.techandteach
 
+import com.techandteach.db.conn
 import com.techandteach.koin.HelloApplication
 import com.techandteach.koin.helloModule
 import io.ktor.application.*
@@ -15,6 +16,8 @@ fun main(args: Array<String>) {
     }
 
     HelloApplication().sayHello()
+
+    conn()
 
     io.ktor.server.netty.EngineMain.main(args)
 }
