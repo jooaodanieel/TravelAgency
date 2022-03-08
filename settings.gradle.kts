@@ -1,1 +1,1 @@
-rootProject.name = "com.techandteach"
+rootProject.name = "com.techandteach.travel-agency"

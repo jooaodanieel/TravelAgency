@@ -18,3 +18,10 @@ In this project, the goals are to learn more about
 
 1. Kotlin
 2. Domain-Driven Design _in practice_
+
+
+# Tooling
+
+- WebServer: ktor
+    - ktor-serialization for JSON payloads
+    - ktor-auth & ktor-auth-jwt for JWT tokens
