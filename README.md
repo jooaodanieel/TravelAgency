@@ -25,3 +25,4 @@ In this project, the goals are to learn more about
 - WebServer: ktor
     - ktor-serialization for JSON payloads
     - ktor-auth & ktor-auth-jwt for JWT tokens
+- Dependency Injection: Koin
